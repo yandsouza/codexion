@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 12:36:51 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 14:53:10 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ typedef struct s_memory
 {
 	t_coder			*coder;
 	t_dongle		*dongle;
+	int				n_coders;
+	int				n_dongle;
+	int				time_to_burnout;
+	int				time_comp;
+	int				time_debug;
+	int				time_refactor;
+	int				n_compiles_required;
+	int				dongle_cooldown;
+	char			*scheduler;
 }					t_memory;
+
+int parser(t_memory *memory, char **argv);
 
 #endif
