@@ -6,13 +6,16 @@
 #    By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/12 12:45:43 by ynascime          #+#    #+#              #
-#    Updated: 2026/09/12 13:41:37 by ynascime         ###   ########.fr        #
+#    Updated: 2026/09/12 20:12:57 by ynascime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	codexion
 SRCS		=	main.c \
-				parser/parser.c
+				parser/parser.c \
+				parser/init_data.c \
+				threads/start_threads.c \
+				simulation/coders.c
 
 OBJS		=   $(SRCS:%.c=%.o)
 CC			=   cc

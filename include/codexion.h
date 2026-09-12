@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 17:24:20 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 20:05:01 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct s_coder
 {
-	int				id;
+	pthread_t		thread_id;
 }					t_coder;
 
 typedef struct s_dongle
@@ -45,7 +45,11 @@ typedef struct s_memory
 	char			*scheduler;
 }					t_memory;
 
-int	parser(t_memory *memory, char **argv);
-int	argc_msg_error(void);
+int		parser(t_memory *memory, char **argv);
+int		argc_msg_error(void);
+void	init_data(t_memory *memory);
+void	start_threads(t_memory *memory);
+void	join_threads(t_memory *memory);
+void	*coder_thread(void *arg);
 
 #endif
