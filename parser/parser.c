@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:57:21 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 17:15:50 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:25:44 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,13 @@ int	parser(t_memory *memory, char **argv)
 	return (1);
 }
 
-int argc_msg_error(void)
+int	argc_msg_error(void)
 {
-		fprintf(stderr, "Valid usage: ./codexion" 
-			" <number_of_coders>"
-			" <time_to_burnout> <time_to_compile>"
-			" <time_to_debug> <time_to_refactor>"
-			" <number_of_compiles_required>"
-			" <dongle_cooldown> <scheduler>\n");
-		return (1);
+	fprintf(stderr, "Valid usage: ./codexion"
+		" <number_of_coders>"
+		" <time_to_burnout> <time_to_compile>"
+		" <time_to_debug> <time_to_refactor>"
+		" <number_of_compiles_required>"
+		" <dongle_cooldown> <scheduler>\n");
+	return (1);
 }
