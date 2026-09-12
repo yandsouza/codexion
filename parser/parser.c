@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:57:21 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 15:09:36 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 15:27:10 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	parser(t_memory *memory, char **argv)
 		}
 		i++;
 	}
+	memset(memory, 0, sizeof(t_memory));
+	if (!store_memory(memory, converted_argv))
+		return (0);
 	if (strcmp(argv[8], "fifo") != 0 && strcmp(argv[8], "edf") != 0)
 	{
 		fprintf(stderr, "ERROR: scheduler must be fifo or edf\n");
@@ -54,7 +57,5 @@ int	parser(t_memory *memory, char **argv)
 	}
 	else
 		memory->scheduler = argv[8];
-	if (!store_memory(memory, converted_argv))
-		return (0);
 	return (1);
 }
