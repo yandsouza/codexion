@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:57:21 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 15:27:10 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:15:50 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 static int	store_memory(t_memory *memory, int *argv)
 {
 	memory->coder = malloc(sizeof(t_coder) * argv[0]);
-	if (!memory->coder)
-		return (1);
 	memory->dongle = malloc(sizeof(t_dongle) * argv[0]);
-	if (memory->dongle == NULL)
+	if (!memory->coder || !memory->dongle)
+	{
+		fprintf(stderr, "MALLOC ERROR\n");
 		return (1);
+	}
 	memory->n_coders = argv[0];
 	memory->n_dongle = argv[0];
 	memory->time_to_burnout = argv[1];
@@ -42,7 +43,7 @@ int	parser(t_memory *memory, char **argv)
 		converted_argv[i] = atoi(argv[i + 1]);
 		if (converted_argv[i] <= 0)
 		{
-			fprintf(stderr, "ERROR: argument must be a int\n");
+			fprintf(stderr, "INPUT ERROR: argument must be a unsigned int\n");
 			return (0);
 		}
 		i++;
@@ -52,10 +53,21 @@ int	parser(t_memory *memory, char **argv)
 		return (0);
 	if (strcmp(argv[8], "fifo") != 0 && strcmp(argv[8], "edf") != 0)
 	{
-		fprintf(stderr, "ERROR: scheduler must be fifo or edf\n");
+		fprintf(stderr, "INPUT ERROR: scheduler must be fifo or edf\n");
 		return (0);
 	}
 	else
 		memory->scheduler = argv[8];
 	return (1);
+}
+
+int argc_msg_error(void)
+{
+		fprintf(stderr, "Valid usage: ./codexion" 
+			" <number_of_coders>"
+			" <time_to_burnout> <time_to_compile>"
+			" <time_to_debug> <time_to_refactor>"
+			" <number_of_compiles_required>"
+			" <dongle_cooldown> <scheduler>\n");
+		return (1);
 }

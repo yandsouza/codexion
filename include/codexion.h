@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 15:26:00 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:14:35 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,6 @@ typedef struct s_memory
 }					t_memory;
 
 int	parser(t_memory *memory, char **argv);
+int argc_msg_error(void);
 
 #endif
