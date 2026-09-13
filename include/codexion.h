@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 22:43:24 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 14:14:24 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_memory	t_memory;
 typedef struct s_dongle
 {
 	long			cooldown;
+	pthread_mutex_t	lock;
 }					t_dongle;
 
 typedef struct s_coder

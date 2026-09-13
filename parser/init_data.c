@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 20:06:25 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 22:46:37 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 14:12:54 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	init_data(t_memory *memory)
 		memory->coder[i].dongle_a = NULL;
 		memory->coder[i].dongle_b = NULL;
 		memory->coder[i].memory = memory;
+		memory->dongle[i].cooldown = 0;
 		i++;
 	}
 }

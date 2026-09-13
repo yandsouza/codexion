@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:25:56 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 22:45:43 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 14:39:29 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	print_memory(t_memory *memory)
 {
 	int	i;
 
+	printf("\n===Memory===\n");
 	printf("Numbers of coders: %i\n", memory->n_coders);
 	printf("Number of dongles: %i\n", memory->n_dongle);
 	printf("Time to burnout: %lis\n", memory->time_to_burnout);
@@ -32,6 +33,7 @@ void	print_memory(t_memory *memory)
 		printf("Coder: %ld\n", memory->coder[i].thread_id);
 		i++;
 	}
+	printf("\n===Simulation===\n\n");
 }
 
 int	main(int argc, char **argv)
