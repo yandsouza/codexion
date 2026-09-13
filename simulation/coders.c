@@ -6,11 +6,22 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 18:46:24 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 16:25:55 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 20:23:02 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+int	simulation(t_memory *memory)
+{
+	int	state;
+
+	state = 0;
+	pthread_mutex_lock(&memory->sim_mutex);
+	state = memory->sim_is_active;
+	pthread_mutex_unlock(&memory->sim_mutex);
+	return (state);
+}
 
 static void	print_task(int id, char *task, t_memory *memory)
 {
@@ -18,7 +29,6 @@ static void	print_task(int id, char *task, t_memory *memory)
 
 	time = ms_time() - memory->start_time;
 	printf("%li %i is %s\n", time, id, task);
-	return ;
 }
 
 static void	task(t_coder *coder, char task)
@@ -41,19 +51,19 @@ static void	task(t_coder *coder, char task)
 		print_task(coder->id, "refactoring", coder->memory);
 		usleep(coder->memory->time_refactor * 1000);
 	}
-	return ;
 }
 
 void	*coder_thread(void *arg)
 {
 	t_coder	*coder;
-
+//	t_memory *memory;
 	coder = (t_coder *)arg;
+//	memory = coder->memory;
 	while (!coder->finished)
 	{
-//		take_dongle(coder);
+//		manage_dongles(memory, coder);
 		task(coder, 'c');
-//		release_dongle(coder);
+//		manage_dongles(coder);
 		task(coder, 'd');
 		task(coder, 'r');
 	}

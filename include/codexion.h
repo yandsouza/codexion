@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 14:14:24 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 20:14:16 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_memory	t_memory;
 typedef struct s_dongle
 {
 	long			cooldown;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	dongle_mutex;
 }					t_dongle;
 
 typedef struct s_coder
@@ -45,6 +45,7 @@ typedef struct s_memory
 	t_coder			*coder;
 	t_dongle		*dongle;
 	char			*scheduler;
+	int				sim_is_active;
 	int				n_coders;
 	int				n_dongle;
 	int				n_compiles_required;
@@ -54,6 +55,7 @@ typedef struct s_memory
 	long			time_refactor;
 	long			dongle_cooldown;
 	long			start_time;
+	pthread_mutex_t	sim_mutex;
 }					t_memory;
 
 int		parser(t_memory *memory, char **argv);
@@ -63,5 +65,6 @@ void	init_data(t_memory *memory);
 void	start_threads(t_memory *memory);
 void	join_threads(t_memory *memory);
 void	*coder_thread(void *arg);
+int		take_dongles(t_memory *memory, t_coder *coder);
 
 #endif
