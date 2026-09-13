@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:25:56 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 20:04:46 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 22:45:43 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	print_memory(t_memory *memory)
 
 	printf("Numbers of coders: %i\n", memory->n_coders);
 	printf("Number of dongles: %i\n", memory->n_dongle);
-	printf("Time to burnout: %is\n", memory->time_to_burnout);
-	printf("Time to compile: %is\n", memory->time_comp);
-	printf("Time to debug: %ims\n", memory->time_debug);
-	printf("Time to refactor: %ims\n", memory->time_refactor);
+	printf("Time to burnout: %lis\n", memory->time_to_burnout);
+	printf("Time to compile: %lis\n", memory->time_comp);
+	printf("Time to debug: %lims\n", memory->time_debug);
+	printf("Time to refactor: %lims\n", memory->time_refactor);
 	printf("Number of compiles required: %i\n", memory->n_compiles_required);
-	printf("Dongle cooldown: %ims\n", memory->dongle_cooldown);
+	printf("Dongle cooldown: %lims\n", memory->dongle_cooldown);
 	printf("Scheduler: %s\n", memory->scheduler);
 	printf("\n===Coders===\n");
 	i = 0;
