@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 20:05:01 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/12 21:25:57 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,20 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_coder
-{
-	pthread_t		thread_id;
-}					t_coder;
-
 typedef struct s_dongle
 {
 	int				cooldown;
 }					t_dongle;
+
+typedef struct s_coder
+{
+	pthread_t		thread_id;
+	t_dongle		*dongle_a;
+	t_dongle		*dongle_b;
+	int				bournout_time;
+	int				n_comp;
+	int				finished;
+}					t_coder;
 
 typedef struct s_memory
 {
@@ -43,6 +48,7 @@ typedef struct s_memory
 	int				n_compiles_required;
 	int				dongle_cooldown;
 	char			*scheduler;
+	int				start_time;
 }					t_memory;
 
 int		parser(t_memory *memory, char **argv);
