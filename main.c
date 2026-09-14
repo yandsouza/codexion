@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:25:56 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 14:39:29 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:30:03 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 		return (1);
 	init_data(&memory);
 	start_threads(&memory);
-	print_memory(&memory);
+//	print_memory(&memory);
 	join_threads(&memory);
 	return (0);
 }

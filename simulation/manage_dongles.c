@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 18:11:00 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 21:39:24 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:48:41 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@ static void	print_task(int id, t_memory *memory)
 {
 	long	time;
 
+	pthread_mutex_lock(&memory->print_mutex);
 	time = ms_time() - memory->start_time;
 	printf("%li %i has taken a dongle\n", time, id);
-	return ;
+	pthread_mutex_unlock(&memory->print_mutex);
 }
 
 void	release_dongles(t_memory *memory, t_coder *coder)
@@ -56,10 +57,12 @@ int	take_dongle(t_coder *coder)
 		if (coder->dongle_b == NULL)
 		{
 			print_task(coder->id, coder->memory);
+			print_task(coder->id, coder->memory);
 			return (0);
 		}
 		if (try_take_dongle(coder->dongle_b, coder->memory) == 0)
 		{
+			print_task(coder->id, coder->memory);
 			print_task(coder->id, coder->memory);
 			return (0);
 		}
@@ -75,7 +78,7 @@ int	take_dongle(t_coder *coder)
 int	manage_dongles(t_memory *memory, t_coder *coder)
 {
 	if (strcmp("fifo", memory->scheduler) == 0)
-		scheduler_fifo(memory, coder, 1);
+		scheduler_fifo(memory, coder);
 //	else
 //		scheduler_edf();
 	return (0);

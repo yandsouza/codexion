@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 20:06:25 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 21:13:22 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:45:51 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_mutex_and_cond(t_memory *memory)
 	int	i;
 
 	pthread_mutex_init(&memory->sim_mutex, NULL);
+	pthread_mutex_init(&memory->print_mutex, NULL);
 	pthread_mutex_init(&memory->fifo_list.list_mutex, NULL);
 	pthread_cond_init(&memory->fifo_list.cond, NULL);
 	i = 0;

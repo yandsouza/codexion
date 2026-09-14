@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 20:44:35 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 21:19:45 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:26:04 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,10 @@ static void	fifo_append_coder(t_memory *memory, t_coder *coder);
 static int	append_list(t_fifo_list *list, t_coder *coder);
 static int	pop_list(t_fifo_list *list);
 
-int	scheduler_fifo(t_memory *memory, t_coder *coder, int task)
+int	scheduler_fifo(t_memory *memory, t_coder *coder)
 {
 	pthread_mutex_lock(&memory->fifo_list.list_mutex);
-	if (task)
-	{
-		fifo_append_coder(memory, coder);
-	}
-	else if (!task)
-	{
-		pop_list(&memory->fifo_list);
-		pthread_cond_broadcast(&memory->fifo_list.cond);
-	}
+	fifo_append_coder(memory, coder);
 	pthread_mutex_unlock(&memory->fifo_list.list_mutex);
 	return (0);
 }

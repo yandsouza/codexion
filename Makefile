@@ -6,14 +6,14 @@
 #    By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/12 12:45:43 by ynascime          #+#    #+#              #
-#    Updated: 2026/09/13 20:57:14 by ynascime         ###   ########.fr        #
+#    Updated: 2026/09/13 22:45:02 by ynascime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	codexion
 SRCS		=	main.c \
 				parser/parser.c \
-				parser/init_data.c \
+				init_exit/init_data.c \
 				threads/start_threads.c \
 				simulation/coders.c \
 				simulation/manage_dongles.c \

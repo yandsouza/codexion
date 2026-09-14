@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 21:41:45 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:43:34 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_memory
 	long			dongle_cooldown;
 	long			start_time;
 	pthread_mutex_t	sim_mutex;
+	pthread_mutex_t	print_mutex;
 }					t_memory;
 
 int		parser(t_memory *memory, char **argv);
@@ -85,6 +86,6 @@ int		manage_dongles(t_memory *memory, t_coder *coder);
 int		take_dongle(t_coder *coder);
 void	release_dongles(t_memory *memory, t_coder *coder);
 int		simulation(t_memory *memory);
-int		scheduler_fifo(t_memory *memory, t_coder *coder, int task);
+int		scheduler_fifo(t_memory *memory, t_coder *coder);
 
 #endif

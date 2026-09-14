@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 18:46:24 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 21:42:47 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 22:46:24 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ static void	print_task(int id, char *task, t_memory *memory)
 {
 	long	time;
 
+	pthread_mutex_lock(&memory->print_mutex);
 	time = ms_time() - memory->start_time;
 	printf("%li %i is %s\n", time, id, task);
+	pthread_mutex_unlock(&memory->print_mutex);
 }
 
 static void	task(t_coder *coder, char task)
