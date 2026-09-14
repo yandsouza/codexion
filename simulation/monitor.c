@@ -6,13 +6,13 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 23:14:59 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 01:23:00 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:11:15 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-void		finish_cond(t_memory *memory, int finish);
+static void	finish_cond(t_memory *memory, int finish);
 static void	finish_simulation(t_memory *memory);
 
 long	check_burnout(t_coder *coder)
@@ -26,7 +26,7 @@ long	check_burnout(t_coder *coder)
 	return (burnout);
 }
 
-int	check_finished(t_coder *coder)
+static int	check_finished(t_coder *coder)
 {
 	int	finished;
 
@@ -66,7 +66,7 @@ void	*monitor(void *arg)
 	return (NULL);
 }
 
-void	finish_cond(t_memory *memory, int finish)
+static void	finish_cond(t_memory *memory, int finish)
 {
 	if (finish == memory->n_coders)
 	{
@@ -84,4 +84,7 @@ static void	finish_simulation(t_memory *memory)
 	pthread_mutex_lock(&memory->fifo_list.list_mutex);
 	pthread_cond_broadcast(&memory->fifo_list.cond);
 	pthread_mutex_unlock(&memory->fifo_list.list_mutex);
+	pthread_mutex_lock(&memory->heap.lock);
+	pthread_cond_broadcast(&memory->heap.cond);
+	pthread_mutex_unlock(&memory->heap.lock);
 }

@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:57:21 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/12 19:39:25 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:21:23 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ static int	store_memory(t_memory *memory, int *argv)
 	if (!memory->coder || !memory->dongle)
 	{
 		fprintf(stderr, "MALLOC ERROR\n");
+		return (1);
+	}
+	if (argv[0] >= 500)
+	{
+		fprintf(stderr, "INPUT ERROR: the max coders is 500\n");
 		return (1);
 	}
 	memory->n_coders = argv[0];

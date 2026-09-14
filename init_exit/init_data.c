@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 20:06:25 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 00:05:31 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:09:39 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void	init_mutex_and_cond(t_memory *memory)
 	pthread_mutex_init(&memory->sim_mutex, NULL);
 	pthread_mutex_init(&memory->print_mutex, NULL);
 	pthread_mutex_init(&memory->fifo_list.list_mutex, NULL);
+	pthread_mutex_init(&memory->heap.lock, NULL);
 	pthread_cond_init(&memory->fifo_list.cond, NULL);
+	pthread_cond_init(&memory->heap.cond, NULL);
 	i = 0;
 	while (i != memory->n_coders)
 	{
@@ -60,6 +62,19 @@ static void	assign_dongles(t_memory *memory, t_coder *coder, int i)
 		coder->dongle_a = &memory->dongle[i];
 }
 
+static void	init_heap(t_memory *memory)
+{
+	int	i;
+
+	memory->heap.size = 0;
+	i = 0;
+	while (i < 500)
+	{
+		memory->heap.tree[i] = NULL;
+		i++;
+	}
+}
+
 void	init_data(t_memory *memory)
 {
 	int	i;
@@ -68,6 +83,7 @@ void	init_data(t_memory *memory)
 	memory->sim_is_active = 1;
 	memory->fifo_list.first = NULL;
 	memory->fifo_list.last = NULL;
+	init_heap(memory);
 	i = 0;
 	while (i != memory->n_coders)
 	{

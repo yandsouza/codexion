@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 01:28:26 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:04:55 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ typedef struct s_fifo_list
 	pthread_cond_t	cond;
 }					t_fifo_list;
 
+typedef struct s_heap
+{
+	t_coder			*tree[500];
+	int				size;
+	pthread_mutex_t	lock;
+	pthread_cond_t	cond;
+}					t_heap;
+
 typedef struct s_dongle
 {
 	long			cooldown;
@@ -63,6 +71,7 @@ typedef struct s_memory
 	t_dongle		*dongle;
 	pthread_t		monitor_id;
 	t_fifo_list		fifo_list;
+	t_heap			heap;
 	char			*scheduler;
 	int				sim_is_active;
 	int				n_coders;
@@ -90,6 +99,7 @@ int		manage_dongles(t_memory *memory, t_coder *coder);
 int		take_dongle(t_coder *coder);
 void	release_dongles(t_memory *memory, t_coder *coder);
 int		simulation(t_memory *memory);
+long	check_burnout(t_coder *coder);
 int		scheduler_fifo(t_memory *memory, t_coder *coder);
 void	print_task(int id, char *task, t_memory *memory);
 void	print_dongle(int id, t_memory *memory);

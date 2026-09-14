@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 18:11:00 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 01:29:06 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:14:46 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,18 @@ void	release_dongles(t_memory *memory, t_coder *coder)
 	pthread_mutex_unlock(&coder->dongle_a->dongle_mutex);
 	if (coder->dongle_b != NULL)
 		pthread_mutex_unlock(&coder->dongle_b->dongle_mutex);
-	pthread_mutex_lock(&memory->fifo_list.list_mutex);
-	pthread_cond_broadcast(&memory->fifo_list.cond);
-	pthread_mutex_unlock(&memory->fifo_list.list_mutex);
+	if (strcmp("fifo", memory->scheduler) == 0)
+	{
+		pthread_mutex_lock(&memory->fifo_list.list_mutex);
+		pthread_cond_broadcast(&memory->fifo_list.cond);
+		pthread_mutex_unlock(&memory->fifo_list.list_mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(&memory->heap.lock);
+		pthread_cond_broadcast(&memory->heap.cond);
+		pthread_mutex_unlock(&memory->heap.lock);
+	}
 }
 
 static int	try_take_dongle(t_dongle *dongle, t_memory *memory)
