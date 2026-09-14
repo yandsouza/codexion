@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 20:14:16 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 21:41:45 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,22 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-typedef struct s_memory	t_memory;
+typedef struct s_memory		t_memory;
+typedef struct s_coder		t_coder;
+
+typedef struct s_node
+{
+	t_coder			*coder;
+	struct s_node	*next;
+}					t_node;
+
+typedef struct s_fifo_list
+{
+	t_node			*first;
+	t_node			*last;
+	pthread_mutex_t	list_mutex;
+	pthread_cond_t	cond;
+}					t_fifo_list;
 
 typedef struct s_dongle
 {
@@ -44,6 +59,7 @@ typedef struct s_memory
 {
 	t_coder			*coder;
 	t_dongle		*dongle;
+	t_fifo_list		fifo_list;
 	char			*scheduler;
 	int				sim_is_active;
 	int				n_coders;
@@ -65,6 +81,10 @@ void	init_data(t_memory *memory);
 void	start_threads(t_memory *memory);
 void	join_threads(t_memory *memory);
 void	*coder_thread(void *arg);
-int		take_dongles(t_memory *memory, t_coder *coder);
+int		manage_dongles(t_memory *memory, t_coder *coder);
+int		take_dongle(t_coder *coder);
+void	release_dongles(t_memory *memory, t_coder *coder);
+int		simulation(t_memory *memory);
+int		scheduler_fifo(t_memory *memory, t_coder *coder, int task);
 
 #endif

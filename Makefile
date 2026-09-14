@@ -6,7 +6,7 @@
 #    By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/12 12:45:43 by ynascime          #+#    #+#              #
-#    Updated: 2026/09/13 19:59:07 by ynascime         ###   ########.fr        #
+#    Updated: 2026/09/13 20:57:14 by ynascime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS		=	main.c \
 				parser/init_data.c \
 				threads/start_threads.c \
 				simulation/coders.c \
-				simulation/manage_dongles.c
+				simulation/manage_dongles.c \
+				simulation/scheduler_fifo.c
 
 OBJS		=   $(SRCS:%.c=%.o)
 CC			=   cc

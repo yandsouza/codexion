@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 20:06:25 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 20:23:43 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 21:13:22 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	init_mutex_and_cond(t_memory *memory)
 	int	i;
 
 	pthread_mutex_init(&memory->sim_mutex, NULL);
+	pthread_mutex_init(&memory->fifo_list.list_mutex, NULL);
+	pthread_cond_init(&memory->fifo_list.cond, NULL);
 	i = 0;
 	while (i != memory->n_coders)
 		pthread_mutex_init(&memory->dongle[i++].dongle_mutex, NULL);
@@ -58,6 +60,8 @@ void	init_data(t_memory *memory)
 
 	memory->start_time = ms_time();
 	memory->sim_is_active = 1;
+	memory->fifo_list.first = NULL;
+	memory->fifo_list.last = NULL;
 	i = 0;
 	while (i != memory->n_coders)
 	{

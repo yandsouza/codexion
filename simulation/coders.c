@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 18:46:24 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 20:23:02 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 21:42:47 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,16 @@ static void	task(t_coder *coder, char task)
 
 void	*coder_thread(void *arg)
 {
-	t_coder	*coder;
-//	t_memory *memory;
+	t_coder		*coder;
+	t_memory	*memory;
+
 	coder = (t_coder *)arg;
-//	memory = coder->memory;
+	memory = coder->memory;
 	while (!coder->finished)
 	{
-//		manage_dongles(memory, coder);
+		manage_dongles(memory, coder);
 		task(coder, 'c');
-//		manage_dongles(coder);
+		release_dongles(memory, coder);
 		task(coder, 'd');
 		task(coder, 'r');
 	}

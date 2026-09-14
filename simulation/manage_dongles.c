@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 18:11:00 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 20:22:28 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 21:39:24 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,23 @@ static void	print_task(int id, t_memory *memory)
 	return ;
 }
 
-int	try_take_dongle(t_dongle *dongle, t_memory *memory)
+void	release_dongles(t_memory *memory, t_coder *coder)
+{
+	long	time;
+
+	time = ms_time() - memory->start_time;
+	coder->dongle_a->cooldown = time + memory->dongle_cooldown;
+	if (coder->dongle_b != NULL)
+		coder->dongle_b->cooldown = time + memory->dongle_cooldown;
+	pthread_mutex_unlock(&coder->dongle_a->dongle_mutex);
+	if (coder->dongle_b != NULL)
+		pthread_mutex_unlock(&coder->dongle_b->dongle_mutex);
+	pthread_mutex_lock(&memory->fifo_list.list_mutex);
+	pthread_cond_broadcast(&memory->fifo_list.cond);
+	pthread_mutex_unlock(&memory->fifo_list.list_mutex);
+}
+
+static int	try_take_dongle(t_dongle *dongle, t_memory *memory)
 {
 	long	time;
 
@@ -58,13 +74,9 @@ int	take_dongle(t_coder *coder)
 
 int	manage_dongles(t_memory *memory, t_coder *coder)
 {
-//	if (strcmp("fifo", memory->scheduler))
-//		scheduler_fifo();
+	if (strcmp("fifo", memory->scheduler))
+		scheduler_fifo(memory, coder, 1);
 //	else
 //		scheduler_edf();
-//
-//	temp line above for gcc:
-	if (memory && coder)
-		return (0);
 	return (0);
 }
