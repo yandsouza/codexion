@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 02:40:38 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 02:54:15 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 03:00:23 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,3 @@ void	free_data(t_memory *memory)
 		node = next;
 	}
 }
-
