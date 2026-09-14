@@ -6,47 +6,29 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:25:56 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:30:03 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:52:00 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
-void	print_memory(t_memory *memory)
-{
-	int	i;
-
-	printf("\n===Memory===\n");
-	printf("Numbers of coders: %i\n", memory->n_coders);
-	printf("Number of dongles: %i\n", memory->n_dongle);
-	printf("Time to burnout: %lis\n", memory->time_to_burnout);
-	printf("Time to compile: %lis\n", memory->time_comp);
-	printf("Time to debug: %lims\n", memory->time_debug);
-	printf("Time to refactor: %lims\n", memory->time_refactor);
-	printf("Number of compiles required: %i\n", memory->n_compiles_required);
-	printf("Dongle cooldown: %lims\n", memory->dongle_cooldown);
-	printf("Scheduler: %s\n", memory->scheduler);
-	printf("\n===Coders===\n");
-	i = 0;
-	while (memory->n_coders != i)
-	{
-		printf("Coder: %ld\n", memory->coder[i].thread_id);
-		i++;
-	}
-	printf("\n===Simulation===\n\n");
-}
 
 int	main(int argc, char **argv)
 {
 	t_memory	memory;
 
 	if (argc != 9)
+	{
+		free_data(&memory);
 		return (argc_msg_error());
+	}
 	if (!parser(&memory, argv))
+	{
+		free_data(&memory);
 		return (1);
+	}
 	init_data(&memory);
 	start_threads(&memory);
-//	print_memory(&memory);
 	join_threads(&memory);
+	free_data(&memory);
 	return (0);
 }

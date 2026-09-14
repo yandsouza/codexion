@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 18:11:00 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 02:14:46 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:28:22 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	manage_dongles(t_memory *memory, t_coder *coder)
 {
 	if (strcmp("fifo", memory->scheduler) == 0)
 		return (scheduler_fifo(memory, coder));
-//	else
-//		return (scheduler_edf());
+	else
+		return (scheduler_edf(memory, coder));
 	return (0);
 }

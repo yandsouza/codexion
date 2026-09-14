@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 02:04:55 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 02:52:53 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,13 @@ void	release_dongles(t_memory *memory, t_coder *coder);
 int		simulation(t_memory *memory);
 long	check_burnout(t_coder *coder);
 int		scheduler_fifo(t_memory *memory, t_coder *coder);
+int		scheduler_edf(t_memory *memory, t_coder *coder);
+void	heap_push(t_heap *manager, t_coder *coder);
+void	heap_pop(t_heap *manager, t_coder *coder);
 void	print_task(int id, char *task, t_memory *memory);
 void	print_dongle(int id, t_memory *memory);
 void	print_burnout(int id, t_memory *memory);
+void	free_data(t_memory *memory);
+void	destroy_mutex(t_memory *memory);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/12 12:45:43 by ynascime          #+#    #+#              #
-#    Updated: 2026/09/14 01:56:55 by ynascime         ###   ########.fr        #
+#    Updated: 2026/09/14 02:51:08 by ynascime         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,13 +14,15 @@ NAME		=	codexion
 SRCS		=	main.c \
 				parser/parser.c \
 				init_exit/init_data.c \
+				init_exit/free_data.c \
 				init_exit/heap.c \
 				threads/start_threads.c \
 				simulation/coders.c \
 				simulation/monitor.c \
 				simulation/manage_dongles.c \
 				simulation/print_logs.c \
-				simulation/scheduler_fifo.c
+				simulation/scheduler_fifo.c \
+				simulation/scheduler_edf.c
 
 OBJS		=   $(SRCS:%.c=%.o)
 CC			=   cc
