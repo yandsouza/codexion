@@ -37,6 +37,27 @@ static int	store_memory(t_memory *memory, int *argv)
 	return (1);
 }
 
+static int	ft_atoi_checked(const char *str)
+{
+	long	result;
+	int		i;
+
+	if (str == NULL || str[0] == '\0')
+		return (-1);
+	result = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		result = (result * 10) + (str[i] - '0');
+		if (result > 2147483647)
+			return (-1);
+		i++;
+	}
+	return ((int)result);
+}
+
 int	parser(t_memory *memory, char **argv)
 {
 	int	converted_argv[8];
@@ -45,7 +66,7 @@ int	parser(t_memory *memory, char **argv)
 	i = 0;
 	while (i <= 6)
 	{
-		converted_argv[i] = atoi(argv[i + 1]);
+		converted_argv[i] = ft_atoi_checked(argv[i + 1]);
 		if (converted_argv[i] <= 0)
 		{
 			fprintf(stderr, "INPUT ERROR: argument must be a unsigned int\n");
