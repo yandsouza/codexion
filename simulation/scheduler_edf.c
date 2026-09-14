@@ -6,14 +6,14 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/14 00:27:08 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 03:32:53 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 03:37:17 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
 static int	is_priority(t_memory *memory, t_coder *coder);
-static int	edf_wait_turn(t_memory *memory, t_coder *coder);
+static int	try_take_dongle(t_memory *memory, t_coder *coder);
 
 int	scheduler_edf(t_memory *memory, t_coder *coder)
 {
