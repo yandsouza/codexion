@@ -12,20 +12,24 @@
 
 #include "codexion.h"
 
-static void	fifo_append_coder(t_memory *memory, t_coder *coder);
+static int	fifo_append_coder(t_memory *memory, t_coder *coder);
 static int	append_list(t_fifo_list *list, t_coder *coder);
 static int	pop_list(t_fifo_list *list);
 
 int	scheduler_fifo(t_memory *memory, t_coder *coder)
 {
+	int	result;
+
 	pthread_mutex_lock(&memory->fifo_list.list_mutex);
-	fifo_append_coder(memory, coder);
+	result = fifo_append_coder(memory, coder);
 	pthread_mutex_unlock(&memory->fifo_list.list_mutex);
-	return (0);
+	return (result);
 }
 
-static void	fifo_append_coder(t_memory *memory, t_coder *coder)
+static int	fifo_append_coder(t_memory *memory, t_coder *coder)
 {
+	int	acquired;
+
 	append_list(&memory->fifo_list, coder);
 	while (simulation(memory) == 1
 		&& (memory->fifo_list.first->coder != coder
@@ -42,11 +46,14 @@ static void	fifo_append_coder(t_memory *memory, t_coder *coder)
 			pthread_cond_wait(&memory->fifo_list.cond,
 				&memory->fifo_list.list_mutex);
 	}
+	acquired = 0;
 	if (simulation(memory) == 1)
 	{
+		acquired = 1;
 		pop_list(&memory->fifo_list);
 		pthread_cond_broadcast(&memory->fifo_list.cond);
 	}
+	return (acquired);
 }
 
 static int	append_list(t_fifo_list *list, t_coder *coder)

@@ -70,10 +70,15 @@ void	*coder_thread(void *arg)
 	memory = coder->memory;
 	while (simulation(memory) && !coder->finished)
 	{
-		manage_dongles(memory, coder);
+		if (!manage_dongles(memory, coder))
+			break ;
 		task(coder, 'c');
 		release_dongles(memory, coder);
+		if (!simulation(memory))
+			break ;
 		task(coder, 'd');
+		if (!simulation(memory))
+			break ;
 		task(coder, 'r');
 	}
 	return (NULL);

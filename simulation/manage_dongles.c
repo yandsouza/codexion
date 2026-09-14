@@ -77,8 +77,8 @@ int	take_dongle(t_coder *coder)
 int	manage_dongles(t_memory *memory, t_coder *coder)
 {
 	if (strcmp("fifo", memory->scheduler) == 0)
-		scheduler_fifo(memory, coder);
+		return (scheduler_fifo(memory, coder));
 //	else
-//		scheduler_edf();
+//		return (scheduler_edf());
 	return (0);
 }
