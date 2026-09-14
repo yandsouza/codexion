@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 23:54:41 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 01:28:26 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,8 @@ int		take_dongle(t_coder *coder);
 void	release_dongles(t_memory *memory, t_coder *coder);
 int		simulation(t_memory *memory);
 int		scheduler_fifo(t_memory *memory, t_coder *coder);
+void	print_task(int id, char *task, t_memory *memory);
+void	print_dongle(int id, t_memory *memory);
+void	print_burnout(int id, t_memory *memory);
 
 #endif

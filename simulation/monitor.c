@@ -6,30 +6,14 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 23:14:59 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 00:22:53 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 01:23:00 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
+void		finish_cond(t_memory *memory, int finish);
 static void	finish_simulation(t_memory *memory);
-
-void print_log(t_memory *memory)
-{
-	pthread_mutex_lock(&memory->print_mutex);
-	printf("ok monitor is working DELETE THIS LINE LATER\n");
-	pthread_mutex_unlock(&memory->print_mutex);
-}
-
-static void	print_task(int id, t_memory *memory)
-{
-	long	time;
-
-	pthread_mutex_lock(&memory->print_mutex);
-	time = ms_time() - memory->start_time;
-	printf("%li %i burned out\n", time, id);
-	pthread_mutex_unlock(&memory->print_mutex);
-}
 
 long	check_burnout(t_coder *coder)
 {
@@ -55,8 +39,8 @@ int	check_finished(t_coder *coder)
 
 void	*monitor(void *arg)
 {
-	int		i;
-	int		finish;
+	int			i;
+	int			finish;
 	t_memory	*memory;
 
 	memory = (t_memory *)arg;
@@ -68,24 +52,28 @@ void	*monitor(void *arg)
 		{
 			if (check_finished(&memory->coder[i]) == 1)
 				finish++;
-			else if ((ms_time() - check_burnout(&memory->coder[i])) > memory->time_to_burnout)
+			else if ((ms_time() - check_burnout(&memory->coder[i]))
+				> memory->time_to_burnout)
 			{
 				finish_simulation(memory);
-				print_task(memory->coder[i].id, memory);
+				print_burnout(memory->coder[i].id, memory);
 				return (NULL);
 			}
 			i++;
 		}
-		if (finish == memory->n_coders)
-		{
-			finish_simulation(memory);
-			// line below be deleted
-			print_log(memory);
-			return (NULL);
-		}
-		usleep(100);
+		finish_cond(memory, finish);
 	}
 	return (NULL);
+}
+
+void	finish_cond(t_memory *memory, int finish)
+{
+	if (finish == memory->n_coders)
+	{
+		finish_simulation(memory);
+		return ;
+	}
+	usleep(100);
 }
 
 static void	finish_simulation(t_memory *memory)

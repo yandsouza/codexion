@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 18:46:24 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 00:24:20 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 01:26:19 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ int	simulation(t_memory *memory)
 	state = memory->sim_is_active;
 	pthread_mutex_unlock(&memory->sim_mutex);
 	return (state);
-}
-
-static void	print_task(int id, char *task, t_memory *memory)
-{
-	long	time;
-
-	pthread_mutex_lock(&memory->print_mutex);
-	time = ms_time() - memory->start_time;
-	printf("%li %i is %s\n", time, id, task);
-	pthread_mutex_unlock(&memory->print_mutex);
 }
 
 static void	task(t_coder *coder, char task)

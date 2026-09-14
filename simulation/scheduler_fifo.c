@@ -6,13 +6,14 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 20:44:35 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:26:04 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 01:02:31 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
 static int	fifo_append_coder(t_memory *memory, t_coder *coder);
+static void	fifo_pop_coder(t_memory *memory, int *acquired);
 static int	append_list(t_fifo_list *list, t_coder *coder);
 static int	pop_list(t_fifo_list *list);
 
@@ -46,14 +47,19 @@ static int	fifo_append_coder(t_memory *memory, t_coder *coder)
 			pthread_cond_wait(&memory->fifo_list.cond,
 				&memory->fifo_list.list_mutex);
 	}
-	acquired = 0;
+	fifo_pop_coder(memory, &acquired);
+	return (acquired);
+}
+
+static void	fifo_pop_coder(t_memory *memory, int *acquired)
+{
+	*acquired = 0;
 	if (simulation(memory) == 1)
 	{
-		acquired = 1;
+		*acquired = 1;
 		pop_list(&memory->fifo_list);
 		pthread_cond_broadcast(&memory->fifo_list.cond);
 	}
-	return (acquired);
 }
 
 static int	append_list(t_fifo_list *list, t_coder *coder)
