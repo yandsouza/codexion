@@ -25,7 +25,7 @@ static int	store_memory(t_memory *memory, int *argv)
 	memory->dongle = malloc(sizeof(t_dongle) * argv[0]);
 	if (!memory->coder || !memory->dongle)
 	{
-		free_print_err(memory, "MALLOC ERROR\n");
+		fprintf(stderr, "MALLOC ERROR\n");
 		return (0);
 	}
 	if (argv[0] >= 500)
