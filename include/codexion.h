@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:29:16 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:43:34 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 23:54:41 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ typedef struct s_coder
 	int				n_comp;
 	int				finished;
 	long			bournout_time;
+	pthread_mutex_t	finish_mutex;
+	pthread_mutex_t	burnout_mutex;
 }					t_coder;
 
 typedef struct s_memory
 {
 	t_coder			*coder;
 	t_dongle		*dongle;
+	pthread_t		monitor_id;
 	t_fifo_list		fifo_list;
 	char			*scheduler;
 	int				sim_is_active;
@@ -82,6 +85,7 @@ void	init_data(t_memory *memory);
 void	start_threads(t_memory *memory);
 void	join_threads(t_memory *memory);
 void	*coder_thread(void *arg);
+void	*monitor(void *arg);
 int		manage_dongles(t_memory *memory, t_coder *coder);
 int		take_dongle(t_coder *coder);
 void	release_dongles(t_memory *memory, t_coder *coder);

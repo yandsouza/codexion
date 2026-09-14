@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 20:06:25 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:45:51 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 00:05:31 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	init_mutex_and_cond(t_memory *memory)
 	pthread_cond_init(&memory->fifo_list.cond, NULL);
 	i = 0;
 	while (i != memory->n_coders)
-		pthread_mutex_init(&memory->dongle[i++].dongle_mutex, NULL);
+	{
+		pthread_mutex_init(&memory->dongle[i].dongle_mutex, NULL);
+		pthread_mutex_init(&memory->coder[i].finish_mutex, NULL);
+		pthread_mutex_init(&memory->coder[i].burnout_mutex, NULL);
+		i++;
+	}
 }
 
 static void	assign_dongles(t_memory *memory, t_coder *coder, int i)

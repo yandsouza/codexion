@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 18:46:24 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:46:24 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 00:24:20 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	simulation(t_memory *memory)
 {
 	int	state;
 
-	state = 0;
 	pthread_mutex_lock(&memory->sim_mutex);
 	state = memory->sim_is_active;
 	pthread_mutex_unlock(&memory->sim_mutex);
@@ -37,11 +36,18 @@ static void	task(t_coder *coder, char task)
 {
 	if (task == 'c')
 	{
+		pthread_mutex_lock(&coder->burnout_mutex);
+		coder->bournout_time = ms_time();
+		pthread_mutex_unlock(&coder->burnout_mutex);
 		print_task(coder->id, "compiling", coder->memory);
 		usleep(coder->memory->time_comp * 1000);
 		coder->n_comp += 1;
 		if (coder->n_comp >= coder->memory->n_compiles_required)
+		{
+			pthread_mutex_lock(&coder->finish_mutex);
 			coder->finished = 1;
+			pthread_mutex_unlock(&coder->finish_mutex);
+		}
 	}
 	if (task == 'd')
 	{
@@ -62,7 +68,7 @@ void	*coder_thread(void *arg)
 
 	coder = (t_coder *)arg;
 	memory = coder->memory;
-	while (!coder->finished)
+	while (simulation(memory) && !coder->finished)
 	{
 		manage_dongles(memory, coder);
 		task(coder, 'c');

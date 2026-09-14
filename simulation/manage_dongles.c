@@ -6,7 +6,7 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/13 18:11:00 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/13 22:48:41 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/13 23:07:01 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	take_dongle(t_coder *coder)
 	{
 		if (coder->dongle_b == NULL)
 		{
-			print_task(coder->id, coder->memory);
 			print_task(coder->id, coder->memory);
 			return (0);
 		}
