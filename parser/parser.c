@@ -6,11 +6,18 @@
 /*   By: ynascime <yannssouza@outlook.com>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 12:57:21 by ynascime          #+#    #+#             */
-/*   Updated: 2026/09/14 02:21:23 by ynascime         ###   ########.fr       */
+/*   Updated: 2026/09/14 04:21:28 by ynascime         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+
+static void	free_print_err(t_memory *memory, char *err_msg)
+{
+	free(memory->coder);
+	free(memory->dongle);
+	fprintf(stderr, err_msg);
+}
 
 static int	store_memory(t_memory *memory, int *argv)
 {
@@ -18,13 +25,13 @@ static int	store_memory(t_memory *memory, int *argv)
 	memory->dongle = malloc(sizeof(t_dongle) * argv[0]);
 	if (!memory->coder || !memory->dongle)
 	{
-		fprintf(stderr, "MALLOC ERROR\n");
-		return (1);
+		free_print_err(memory, "MALLOC ERROR\n");
+		return (0);
 	}
 	if (argv[0] >= 500)
 	{
-		fprintf(stderr, "INPUT ERROR: the max coders is 500\n");
-		return (1);
+		free_print_err(memory, "INPUT ERROR: the max coders is 500\n");
+		return (0);
 	}
 	memory->n_coders = argv[0];
 	memory->n_dongle = argv[0];
@@ -79,7 +86,7 @@ int	parser(t_memory *memory, char **argv)
 		return (0);
 	if (strcmp(argv[8], "fifo") != 0 && strcmp(argv[8], "edf") != 0)
 	{
-		fprintf(stderr, "INPUT ERROR: scheduler must be fifo or edf\n");
+		free_print_err(memory, "INPUT ERROR: scheduler must be fifo or edf\n");
 		return (0);
 	}
 	else
