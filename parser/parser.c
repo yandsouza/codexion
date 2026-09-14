@@ -16,7 +16,7 @@ static void	free_print_err(t_memory *memory, char *err_msg)
 {
 	free(memory->coder);
 	free(memory->dongle);
-	fprintf(stderr, err_msg);
+	fprintf(stderr, "%s", err_msg);
 }
 
 static int	store_memory(t_memory *memory, int *argv)
