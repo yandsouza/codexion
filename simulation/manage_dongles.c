@@ -55,8 +55,8 @@ int	take_dongle(t_coder *coder)
 	{
 		if (coder->dongle_b == NULL)
 		{
-			pthread_mutex_unlock(&coder->dongle_a->dongle_mutex);
-			return (1);
+			print_task(coder->id, coder->memory);
+			return (0);
 		}
 		if (try_take_dongle(coder->dongle_b, coder->memory) == 0)
 		{
@@ -74,7 +74,7 @@ int	take_dongle(t_coder *coder)
 
 int	manage_dongles(t_memory *memory, t_coder *coder)
 {
-	if (strcmp("fifo", memory->scheduler))
+	if (strcmp("fifo", memory->scheduler) == 0)
 		scheduler_fifo(memory, coder, 1);
 //	else
 //		scheduler_edf();

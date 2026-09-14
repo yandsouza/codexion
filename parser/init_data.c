@@ -71,8 +71,8 @@ void	init_data(t_memory *memory)
 		memory->coder[i].finished = 0;
 		memory->coder[i].memory = memory;
 		memory->dongle[i].cooldown = 0;
-		memory->coder->dongle_a = NULL;
-		memory->coder->dongle_b = NULL;
+		memory->coder[i].dongle_a = NULL;
+		memory->coder[i].dongle_b = NULL;
 		assign_dongles(memory, &memory->coder[i], i);
 		i++;
 	}

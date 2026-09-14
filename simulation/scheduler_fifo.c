@@ -50,6 +50,11 @@ static void	fifo_append_coder(t_memory *memory, t_coder *coder)
 			pthread_cond_wait(&memory->fifo_list.cond,
 				&memory->fifo_list.list_mutex);
 	}
+	if (simulation(memory) == 1)
+	{
+		pop_list(&memory->fifo_list);
+		pthread_cond_broadcast(&memory->fifo_list.cond);
+	}
 }
 
 static int	append_list(t_fifo_list *list, t_coder *coder)
